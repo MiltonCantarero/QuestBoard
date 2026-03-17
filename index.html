@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head> 
+    <title>Quest Board</title>
+
+    <!--Pixel Font-->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!--A to do list with an XP system -->
+<!--where you can add tasks and earn XP for completing them -->
+
+<div class="game-container">
+
+    <h1>Quest Board</h1>
+
+    <!-- Player Stats Section -->
+    <div class="player-stats">
+
+        <!-- Level Display --> 
+         
+        <h3>Level: <span id="level">1</span></h3>
+
+        <!-- XP Display -->
+        <h3>XP: <span id="xp">0</span>/100</h3>
+
+        <!-- XP Progress Bar -->
+        <progress id="xpBar" value="0" max="100"></progress>
+
+    </div>
+
+    <!-- Task Input -->
+    <div class="quest-input">
+        <input id="taskInput" placeholder="Enter a task...">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <!-- Quest Log Title -->
+    <h2>Quest Log</h2>
+
+    <!-- Generated from script.js -->
+    <!-- Displays tasks the user adds -->
+    <ul id="taskList"></ul>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
