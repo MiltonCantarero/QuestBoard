@@ -5,6 +5,7 @@ let coins = 0;
 let streak = 0;
 let amountNeededForNextLevel = 100;
 
+
 //Elements from HTML
 const taskInput = document.getElementById("taskInput");
 const xpValueInput = document.getElementById("xpValue");
@@ -26,6 +27,7 @@ addQuestButton.addEventListener("click", addQuest);
 function addQuest(){
     const questName = taskInput.value.trim();
     const questXP = Number(xpValueInput.value);
+    
 
     if(questName === "" || isNaN(questXP) || questXP <= 0){  //If invalid input give error message
         alert("Please enter a valid quest name and XP value.");
@@ -59,9 +61,22 @@ function addQuest(){
 } 
 
 function completeQuest(questCard, questXP){
-    questCard.remove();
+    questCard.classList.add("completed");
+    setTimeout(() => {
+        questCard.remove();
+    }, 400); // Delay to allow animation to play
 
-    xp = xp + questXP;
+    let gainedXP = 0;
+    const xpInterval = setInterval(() => {
+        xp++;
+        gainedXP++;
+        updateUI();
+        
+        if(gainedXP >= questXP){
+            clearInterval(xpInterval);
+        }
+    }, 20); // Adjust the speed of XP gain here (lower is faster)
+
     coins = coins + Math.floor(questXP / 10);
 
     if (xp >= amountNeededForNextLevel){
@@ -134,5 +149,49 @@ document.addEventListener("keydown", function(event){
     }
 
 })
+
+function showPage(pageId){
+    const pages = ["questContainer", "shopPage"];
+
+    pages.forEach(page =>{
+        const element = document.getElementById(page);
+        if(element){
+            element.style.display = "none";
+        }
+    });
+    document.getElementById(pageId).style.display = "block";
+}
+
+//Buying Buttons for the SHOP
+const buyButtons = document.querySelectorAll(".buyButton");
+
+buyButtons.forEach(button => {
+
+    button.addEventListener("click", function(){
+
+        const card = this.parentElement;
+        const title = card.querySelector(".shopTitle").textContent;
+        const costText = card.querySelector(".shopPrice").textContent;
+        const cost = Number(costText.replace(" Gold",""));
+
+        const confirmPurchase = confirm(`Buy ${title} for ${cost} gold?`);
+
+        if(!confirmPurchase) return;
+
+        if(coins < cost){
+            alert("Not enough gold!");
+            return;
+        }
+
+        coins -= cost;
+
+        alert(`${title} added to your inventory!`);
+
+        updateUI();
+        saveData();
+
+    });
+
+});
 
 window.onload = loadData;

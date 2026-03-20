@@ -35,8 +35,8 @@
 
             <nav class = "menu"> <!-- Menu for sidebar -->
                 <button> Character </button>
-                <button> Quests </button>
-                <button> Shop  </button>
+                <button onclick = "showPage('questContainer')"> Quests </button>
+                <button onclick = "showPage('shopPage')"> Shop  </button>
                 <button> Inventory </button>
                 <button> Settings </button>
              </nav>
@@ -61,7 +61,10 @@
                 <div class = "streak"> Streak: 0</div>
             </div>
 
-            <div class = "questContainer">
+
+            <!-- QUEST PAGE -->
+
+            <div id = "questContainer" class = "questContainer" style = "display:show;">
                 <h2>Today's Quests</h2>
 
 
@@ -76,6 +79,47 @@
                     <p class = "emptyMessage">
                       No active quests! Add one to start today's adventure!
                     </p>
+                </div>
+            </div>
+
+
+            <!-- SHOP PAGE -->
+
+            <div id = "shopPage" class = "shopPage" style = "display:none;">
+                <h2>Item Shop</h2>
+                <div class = "shopGrid">
+                    <div class = "shopCard">
+                        <div class = "shopImage">🛡️</div>
+                        <div class = "shopTitle">Blue Shield</div>
+                        <div class = "shopDescription">A magical blue shield with divine power.</div>
+                        <div class = "shopPrice">50 Gold</div>
+                        <button class = "buyButton">Purchase</button>
+                    </div>
+
+                    <div class="shopCard">
+                        <div class="shopImage">🛡️</div>
+                        <div class="shopTitle">Knight Armor</div>
+                        <div class="shopDescription">Heavy armor of a brave warrior.</div>
+                        <div class="shopPrice">100 Gold</div>
+                        <button class="buyButton">Purchase</button>
+                    </div>
+
+                    <div class="shopCard">
+                        <div class="shopImage">🛡️</div>
+                        <div class="shopTitle">Dragon Scale</div>
+                        <div class="shopDescription">A rare scale from a mighty dragon.</div>
+                        <div class="shopPrice">150 Gold</div>
+                        <button class="buyButton">Purchase</button>
+                    </div>
+
+                    <div class="shopCard">
+                        <div class="shopImage">🛡️</div>
+                        <div class="shopTitle">Mystic Robe</div>
+                        <div class="shopDescription">A robe imbued with arcane energy.</div>
+                        <div class="shopPrice">200 Gold</div>
+                        <button class="buyButton">Purchase</button>
+                    </div>
+
                 </div>
             </div>
         </main>
