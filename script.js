@@ -1,75 +1,138 @@
+// Players data
 let xp = 0;
 let level = 1;
+let coins = 0;
+let streak = 0;
+let amountNeededForNextLevel = 100;
 
-//Loads saved data from localStorage
-window.onload = function(){
-    loadData();
-    updateDisplay();
-}
+//Elements from HTML
+const taskInput = document.getElementById("taskInput");
+const xpValueInput = document.getElementById("xpValue");
+const addQuestButton = document.getElementById("addQuestButton");
+const questList = document.getElementById("questlist");
 
-//Adds a task to the list.
-function addTask(){
-    const input = document.getElementById("taskInput");
-    const taskText = input.value;
+//Display fpr stats
+const xpStatus = document.querySelector(".XpStatus");
+const xpSection = document.querySelector(".XpSection");
+const levelDisplay = document.querySelector(".level");
+const coinDisplay = document.querySelector(".coins");
+const xpFill = document.querySelector(".XPFill");
+const xpText = document.querySelector(".xpText");
 
-    if (taskText === "") 
+
+
+//Adding quest Function you type in the input and will create a new card on the board
+addQuestButton.addEventListener("click", addQuest);
+function addQuest(){
+    const questName = taskInput.value.trim();
+    const questXP = Number(xpValueInput.value);
+
+    if(questName === "" || isNaN(questXP) || questXP <= 0){  //If invalid input give error message
+        alert("Please enter a valid quest name and XP value.");
         return;
+    }
+    const emptyMessage = questList.querySelector(".emptyMessage"); //removes empty message
+    if(emptyMessage){
+        emptyMessage.remove();
+    }
 
-    const li = document.createElement("li");
+    //Creates new quest
+    const questCard = document.createElement("div");
+    questCard.classList.add("questCard");
+    questCard.innerHTML = `
+        <span class="questTitle">${questName}</span>
+        <span class="questReward">+${questXP} XP</span>
+        <button class="completeQuest">✔</button>`;
+    
+    const completeButton = questCard.querySelector(".completeQuest");
 
-    li.innerHTML = `<input type="checkbox" onclick="completeTask(this)"> 
-    ${taskText}`;
+    completeButton.addEventListener("click", () => {
+        completeQuest(questCard, questXP);
+    });
 
-    document.getElementById("taskList").appendChild(li);
-
-    input.value = "";
-
+    ///adds quest to list
+    questList.appendChild(questCard);
+    
+    //clears input
+    taskInput.value = "";
     saveData();
+} 
 
-}
+function completeQuest(questCard, questXP){
+    questCard.remove();
 
-//Saves the current state of each task into the LocalStorage
-function completeTask(checkbox){
-    checkbox.parentElement.remove();
+    xp = xp + questXP;
+    coins = coins + Math.floor(questXP / 10);
 
-    xp = xp + 10;
-
-    if(xp >= 100) {
-        xp = 0;
+    if (xp >= amountNeededForNextLevel){
+        xp = xp - amountNeededForNextLevel;
         level++;
+        amountNeededForNextLevel = Math.floor(amountNeededForNextLevel * 1.25);
         alert(`Congratulations! You've reached level ${level}!`);
     }
 
-    updateDisplay();
+    updateUI();
     saveData();
-}    
- 
-//Updates the display of XP and level on the page
-function updateDisplay()
-{
-    document.getElementById("xp").textContent = xp;
-    document.getElementById("level").textContent = level;
-    document.getElementById("xpBar").value = xp;
-
 }
 
-//Saves the tasks, Xp, and level by storing them in the LocalStorage
+//Updates UI display
+function updateUI(){
+    xpStatus.textContent = `XP: ${xp} / ${amountNeededForNextLevel}`;
+    xpText.textContent = `XP: ${xp} / ${amountNeededForNextLevel}`;
+    levelDisplay.textContent = "Lv " + level;
+    coinDisplay.textContent = "Gold: " + coins;
+    const percent = (xp / amountNeededForNextLevel) * 100;
+    xpFill.style.width = percent + "%";
+}
+
+//Saves data to local storage
 function saveData(){
-    localStorage.setItem("tasks", document.getElementById("taskList").innerHTML);
+    localStorage.setItem("quests", questList.innerHTML);
     localStorage.setItem("xp", xp);
     localStorage.setItem("level", level);
+    localStorage.setItem("coins", coins);
+    localStorage.setItem("amountNeededForNextLevel", amountNeededForNextLevel);
 }
 
-//load the saved data
+//Loads data from local storage
 function loadData(){
-    const savedTasks = localStorage.getItem("tasks");
+    const savedQuests = localStorage.getItem("quests");
 
-    if(savedTasks){
-        document.getElementById("taskList").innerHTML = savedTasks;
+    if(savedQuests){
+        questList.innerHTML = savedQuests;
+        const completeButtons = document.querySelectorAll(".completeQuest");
 
+        completeButtons.forEach(button => {
+            button.addEventListener("click", function(){
+                const questCard = this.parentElement;
+                const xpText = questCard.querySelector(".questReward").textContent;
+                const questXP = Number(xpText.replace(" XP",""));
+
+        completeQuest(questCard, questXP);
+    });
+});
     }
     xp = Number(localStorage.getItem("xp")) || 0;
     level = Number(localStorage.getItem("level")) || 1;
-
-    updateDisplay();
+    coins = Number(localStorage.getItem("coins")) || 0;
+    amountNeededForNextLevel = Number(localStorage.getItem("amountNeededForNextLevel")) || 100;
+    updateUI();
 }
+
+document.addEventListener("keydown", function(event){
+
+    if(event.key.toLowerCase() === "r"){
+
+        const confirmReset = confirm("Reset all progress?")
+
+        if(confirmReset){
+
+            localStorage.clear()
+            location.reload()
+
+        }
+    }
+
+})
+
+window.onload = loadData;

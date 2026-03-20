@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head> 
     <title>Quest Board</title>
-
-    <!--Pixel Font-->
+    <!--Font-->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,41 +13,74 @@
 <!--A to do list with an XP system -->
 <!--where you can add tasks and earn XP for completing them -->
 
-<div class="game-container">
+<div class="mainApp">
 
-    <h1>Quest Board</h1>
+    <header class = "topBar">
+        QuestBoard
+    </header>
 
-    <!-- Player Stats Section -->
-    <div class="player-stats">
+    <div class = "content">
+        <aside class = "sidebar"> <!-- Sidebar-->
 
-        <!-- Level Display --> 
-         
-        <h3>Level: <span id="level">1</span></h3>
 
-        <!-- XP Display -->
-        <h3>XP: <span id="xp">0</span>/100</h3>
+            <div class = "PlayerCharacterSection"> <!-- Player-->
+                <div class = "PlayerCharacter">
+                    👾
+                </div>
+                <div class = "XpStatus">
+                    XP: 0 / 100
+                </div>
+            </div>
 
-        <!-- XP Progress Bar -->
-        <progress id="xpBar" value="0" max="100"></progress>
 
+            <nav class = "menu"> <!-- Menu for sidebar -->
+                <button> Character </button>
+                <button> Quests </button>
+                <button> Shop  </button>
+                <button> Inventory </button>
+                <button> Settings </button>
+             </nav>
+        </aside>
+
+
+
+        <!-- Main Content -->
+        <main class = "mainContent">
+            <div class = "stats">
+                <div class = "coins">Gold: 50</div>
+                <div class="XPSection">
+                    <span class="xpText">XP: 0 / 100</span>
+
+                    <div class="XPBar">
+                        <div class="XPFill"></div>
+                    </div>
+                </div>
+
+                <div class = "level"> Lv 1</div>
+
+                <div class = "streak"> Streak: 0</div>
+            </div>
+
+            <div class = "questContainer">
+                <h2>Today's Quests</h2>
+
+
+                <div class = "questInput"> <!-- Insert Tasks-->
+                    <input id = "taskInput" class = "taskInput" placeholder = "Add a new quest...">
+                    <div class = "EmptySpaceBetweenTaskAndXP"></div>
+                    <input id = "xpValue" class = "XPValue" value = "10" placeholder = "Exp...">
+                    <button id = "addQuestButton"class = "addButton">+</button>
+                </div>
+
+                <div id = "questlist" class = "questList">
+                    <p class = "emptyMessage">
+                      No active quests! Add one to start today's adventure!
+                    </p>
+                </div>
+            </div>
+        </main>
     </div>
-
-    <!-- Task Input -->
-    <div class="quest-input">
-        <input id="taskInput" placeholder="Enter a task...">
-        <button onclick="addTask()">Add Task</button>
-    </div>
-
-    <!-- Quest Log Title -->
-    <h2>Quest Log</h2>
-
-    <!-- Generated from script.js -->
-    <!-- Displays tasks the user adds -->
-    <ul id="taskList"></ul>
-
 </div>
-
 <script src="script.js"></script>
-
 </body>
 </html>
