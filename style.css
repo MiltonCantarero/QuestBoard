@@ -358,10 +358,6 @@ body{
     background-image: url("sprites/DefaultHeadBoy.png");
 }
 
-#genderLayer{
-    background-image: url("sprites/none.png");
-}
-
 .characterLayout{
     display: flex;
     align-items: flex-start;

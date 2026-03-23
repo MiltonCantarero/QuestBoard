@@ -10,7 +10,6 @@ let equipment = {
     torso: "DefaultTorso",
     legs: "DefaultLegs",
     skin: "DefaultSkin",
-    gender: "none"
 };
 
 
