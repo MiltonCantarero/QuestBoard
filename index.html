@@ -25,7 +25,15 @@
 
             <div class = "PlayerCharacterSection"> <!-- Player-->
                 <div class = "PlayerCharacter">
-                    👾
+
+                    <div class="characterPreviewSmall">
+
+                        <div id="skinLayer" class="characterLayer"></div>
+                        <div id="legsLayer" class="characterLayer"></div>
+                        <div id="torsoLayer" class="characterLayer"></div>
+                        <div id="headLayer" class="characterLayer"></div>
+
+                    </div>
                 </div>
                 <div class = "XpStatus">
                     XP: 0 / 100
@@ -34,7 +42,7 @@
 
 
             <nav class = "menu"> <!-- Menu for sidebar -->
-                <button> Character </button>
+                <button onclick = "showPage('characterPage')"> Character </button>
                 <button onclick = "showPage('questContainer')"> Quests </button>
                 <button onclick = "showPage('shopPage')"> Shop  </button>
                 <button> Inventory </button>
@@ -89,37 +97,77 @@
                 <h2>Item Shop</h2>
                 <div class = "shopGrid">
                     <div class = "shopCard">
-                        <div class = "shopImage">🛡️</div>
-                        <div class = "shopTitle">Blue Shield</div>
-                        <div class = "shopDescription">A magical blue shield with divine power.</div>
+                        <div class = "shopImage">:/</div>
+                        <div class = "shopTitle">TBD</div>
+                        <div class = "shopDescription">A description of the outfit.</div>
                         <div class = "shopPrice">50 Gold</div>
                         <button class = "buyButton">Purchase</button>
                     </div>
 
                     <div class="shopCard">
-                        <div class="shopImage">🛡️</div>
-                        <div class="shopTitle">Knight Armor</div>
-                        <div class="shopDescription">Heavy armor of a brave warrior.</div>
+                        <div class="shopImage">:/</div>
+                        <div class="shopTitle">TBD</div>
+                        <div class="shopDescription">A description of the outfit.</div>
                         <div class="shopPrice">100 Gold</div>
                         <button class="buyButton">Purchase</button>
                     </div>
 
                     <div class="shopCard">
-                        <div class="shopImage">🛡️</div>
-                        <div class="shopTitle">Dragon Scale</div>
-                        <div class="shopDescription">A rare scale from a mighty dragon.</div>
+                        <div class="shopImage">:/</div>
+                        <div class="shopTitle">TBD</div>
+                        <div class="shopDescription">A description of the outfit.</div>
                         <div class="shopPrice">150 Gold</div>
                         <button class="buyButton">Purchase</button>
                     </div>
 
                     <div class="shopCard">
-                        <div class="shopImage">🛡️</div>
-                        <div class="shopTitle">Mystic Robe</div>
-                        <div class="shopDescription">A robe imbued with arcane energy.</div>
+                        <div class="shopImage">:/</div>
+                        <div class="shopTitle">TBD</div>
+                        <div class="shopDescription">A description of the outfit.</div>
                         <div class="shopPrice">200 Gold</div>
                         <button class="buyButton">Purchase</button>
                     </div>
 
+                </div>
+            </div>
+
+
+            <!-- CharacterPage -->
+
+            <div id="characterPage" class = "characterPage" style = "display:none;">
+                <h2>Character</h2>
+
+                <div class = "characterLayout">
+
+                <div class = "characterPreview">
+
+                        <div id="skinLayer" class="characterLayer"></div>
+                        <div id="legsLayer" class="characterLayer"></div>
+                        <div id="torsoLayer" class="characterLayer"></div>
+                        <div id="headLayer" class="characterLayer"></div>
+
+                </div>
+
+                <div class = "customization">
+
+                    <h3>Head</h3>
+                    <button onclick = "equipItem('head', 'DefaultHeadBoy')">Boy With Short Hair</button>
+                    <button onclick = "equipItem('head', 'DefaultHeadGirl')">Girl With Long Hair</button>
+                    <button onclick = "equipItem('head', 'ProfessorHead')">Wise Professor</button>
+
+                    <h3>Torso</h3>
+                    <button onclick = "equipItem('torso', 'DefaultTorso')">Knight's Armor</button>
+
+                    <h3>Legs</h3>
+                    <button onclick = "equipItem('legs', 'DefaultLegs')">Knight's Leggings</button>
+
+                    <h3>Skin</h3>
+                    <button onclick = "equipItem('skin', 'DefaultSkin')">Skin Tone 1</button>
+                    <button onclick = "equipItem('skin', 'Skintone1')">Skin Tone 2</button>
+                    <button onclick = "equipItem('skin', 'Skintone2')">Skin Tone 3</button>
+                    <button onclick = "equipItem('skin', 'Skintone3')">Skin Tone 4</button>
+
+                </div>
                 </div>
             </div>
         </main>

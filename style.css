@@ -53,6 +53,7 @@ body{
     align-items:center;
     justify-content: center;
     font-size: 40px;
+    z-index: 1;
 }
 
 .XpStatus{
@@ -63,6 +64,7 @@ body{
     font-size: 12px;
     height: 20px;
     text-align: center;
+    z-index: 3;
 
 }
 
@@ -323,7 +325,7 @@ body{
 
 .buyButton{
     background: #7EA0BD;
-    border: non;
+    border: none;
     padding: 8px 12px;
     border-radius: 6px;
     color: white;
@@ -338,4 +340,79 @@ body{
 .shopCard:hover{
     transform: translateY(-3px);
     box-shadow: 0 4px 0 #51687c;
+}
+
+
+/* PLAYER CHARACTER */
+
+#skinLayer{
+    background-image: url("sprites/DefaultSkin.png");
+}
+#legsLayer{
+    background-image: url("sprites/DefaultLegs.png");
+}
+#torsoLayer{
+    background-image: url("sprites/DefaultTorso.png");
+}
+#headLayer{
+    background-image: url("sprites/DefaultHeadBoy.png");
+}
+
+.characterLayout{
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+    margin-top: 20px;
+}
+
+.customization{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.characterPreview{
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 20px 0;
+    padding-bottom: 15px;
+    background-color: #c4cbd1;
+    border-radius: 25%;
+    border: 2px solid grey;
+    
+}
+/* for the side bar*/
+.characterPreviewSmall{
+    position: relative;
+    top: -71px;
+    left: -95px;
+    width: 120px;
+    height: 120px;
+    z-index: 2;
+}
+.characterPreviewSmall .characterLayer{
+    width: 320px;
+    height: 246px;
+    background-size: 2560px 320px;
+}
+
+.characterLayer{
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    image-rendering: pixelated;
+    background-repeat: no-repeat;
+    background-size: 2560px 320px;
+
+    animation: idleAnimation 4s steps(8) infinite;
+}
+
+@keyframes idleAnimation{
+    from{
+        background-position: 0px 0px;
+    }
+    to{
+        background-position: -2560px 0px;
+    }
 }
