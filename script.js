@@ -5,6 +5,14 @@ let coins = 0;
 let streak = 0;
 let amountNeededForNextLevel = 100;
 
+let equipment = {
+    head: "DefaultHeadBoy",
+    torso: "DefaultTorso",
+    legs: "DefaultLegs",
+    skin: "DefaultSkin",
+    gender: "none"
+};
+
 
 //Elements from HTML
 const taskInput = document.getElementById("taskInput");
@@ -151,7 +159,7 @@ document.addEventListener("keydown", function(event){
 })
 
 function showPage(pageId){
-    const pages = ["questContainer", "shopPage"];
+    const pages = ["questContainer", "shopPage", "characterPage"];
 
     pages.forEach(page =>{
         const element = document.getElementById(page);
@@ -194,4 +202,39 @@ buyButtons.forEach(button => {
 
 });
 
-window.onload = loadData;
+function equipItem(type, item){
+    
+    equipment[type] = item;
+
+    const layers = document.querySelectorAll(`#${type}Layer`);
+    layers.forEach(layer => {
+        layer.style.backgroundImage = `url("sprites/${item}.png")`;
+    });
+
+    saveEquipment();
+
+}
+
+function saveEquipment(){
+    localStorage.setItem("equipment", JSON.stringify(equipment));
+}
+
+function loadEquipment(){
+    const savedEquipment = localStorage.getItem("equipment");
+    if(savedEquipment){
+        equipment = JSON.parse(savedEquipment);
+    }
+
+    for(const type in equipment){
+        const layers = document.querySelectorAll(`#${type}Layer`);
+
+        layers.forEach(layer => {
+            layer.style.backgroundImage = `url("sprites/${equipment[type]}.png")`;
+        });
+    }
+}
+
+window.onload = function(){
+    loadData();
+    loadEquipment();
+}
