@@ -97,42 +97,42 @@
                 <h2>Item Shop</h2>
                 <div class = "shopGrid">
                     <div class = "shopCard">
-                        <div class = "shopImage">:/</div>
-                        <div class = "shopTitle">TBD</div>
-                        <div class = "shopDescription">A description of the outfit.</div>
-                        <div class = "shopPrice">50 Gold</div>
-                        <button class = "buyButton">Purchase</button>
+                        <div class = "shopImage"><img src = "/sprites/KnightHelmShop.png"></div>
+                        <div class = "shopTitle">Knight's Helmet</div>
+                        <div class = "shopDescription">An odd helmet, it seems to fit you perfectly...</div>
+                        <div class = "shopPrice">20 Gold</div>
+                        <button class = "buyButton" data-item = "KnightHelmet">Purchase</button>
                     </div>
 
                     <div class="shopCard">
-                        <div class="shopImage">:/</div>
-                        <div class="shopTitle">TBD</div>
-                        <div class="shopDescription">A description of the outfit.</div>
+                        <div class="shopImage"><img src = "/sprites/ProfessorShop.png"></div>
+                        <div class="shopTitle">A Wise Professor</div>
+                        <div class="shopDescription">A wise man of great arcane knowledge...</div>
+                        <div class="shopPrice">50 Gold</div>
+                        <button class="buyButton" data-item = "ProfessorHead">Purchase</button>
+                    </div>
+
+                    <div class="shopCard">
+                        <div class="shopImage"><img src = "/sprites/BirdieShop.png"></div>
+                        <div class="shopTitle">Lost Birdie</div>
+                        <div class="shopDescription">A small little bird who loves to fly around...</div>
+                        <div class="shopPrice">75 Gold</div>
+                        <button class="buyButton" data-item = "BirdieMale">Purchase</button>
+                    </div>
+
+                    <div class="shopCard">
+                        <div class="shopImage"><img src = "/sprites/MageShop.png"></div>
+                        <div class="shopTitle">Mage's Robe</div>
+                        <div class="shopDescription">This Robe seems to be exposed to the elements...</div>
                         <div class="shopPrice">100 Gold</div>
-                        <button class="buyButton">Purchase</button>
-                    </div>
-
-                    <div class="shopCard">
-                        <div class="shopImage">:/</div>
-                        <div class="shopTitle">TBD</div>
-                        <div class="shopDescription">A description of the outfit.</div>
-                        <div class="shopPrice">150 Gold</div>
-                        <button class="buyButton">Purchase</button>
-                    </div>
-
-                    <div class="shopCard">
-                        <div class="shopImage">:/</div>
-                        <div class="shopTitle">TBD</div>
-                        <div class="shopDescription">A description of the outfit.</div>
-                        <div class="shopPrice">200 Gold</div>
-                        <button class="buyButton">Purchase</button>
+                        <button class="buyButton" data-item = "MageTorso">Purchase</button>
                     </div>
 
                 </div>
             </div>
 
 
-            <!-- CharacterPage -->
+            <!-- CharacterPage to customize your own character-->
 
             <div id="characterPage" class = "characterPage" style = "display:none;">
                 <h2>Character</h2>
@@ -150,22 +150,47 @@
 
                 <div class = "customization">
 
+                    <div class = "customCategory">
+
                     <h3>Head</h3>
+                    <div class = "customButtons">
                     <button onclick = "equipItem('head', 'DefaultHeadBoy')">Boy With Short Hair</button>
                     <button onclick = "equipItem('head', 'DefaultHeadGirl')">Girl With Long Hair</button>
                     <button onclick = "equipItem('head', 'ProfessorHead')">Wise Professor</button>
+                    <button onclick = "equipItem('head', 'KnightHelmet')">Knight's Helmet</button>
+                    <button onclick = "equipItem('head', 'BirdieMale')">Birdie (male)</button>
+                    <button onclick = "equipItem('head', 'BirdieFemale')">Birdie (female)</button>
+                    </div>
+                    </div> 
 
+                    <div class = "customCategory">
                     <h3>Torso</h3>
+                    <div class = "customButtons">
                     <button onclick = "equipItem('torso', 'DefaultTorso')">Knight's Armor</button>
+                    <button onclick = "equipItem('torso', 'ProfessorTorso')">Professor's Shirt</button>
+                    <button onclick = "equipItem('torso', 'MageTorso')">Mage's Top Robe</button>
+                    </div>
+                    </div>
 
+
+                     <div class = "customCategory">
                     <h3>Legs</h3>
+                    <div class = "customButtons">
                     <button onclick = "equipItem('legs', 'DefaultLegs')">Knight's Leggings</button>
+                    <button onclick = "equipItem('legs', 'ProfessorLegs')">Professor's Pants</button>
+                    <button onclick = "equipItem('legs', 'MageLegs')">Mage's Bottom Robe</button>
+                    </div>
+                     </div>
 
+                     <div class = "customCategory">
                     <h3>Skin</h3>
+                    <div class = "customButtons">
                     <button onclick = "equipItem('skin', 'DefaultSkin')">Skin Tone 1</button>
                     <button onclick = "equipItem('skin', 'Skintone1')">Skin Tone 2</button>
                     <button onclick = "equipItem('skin', 'Skintone2')">Skin Tone 3</button>
                     <button onclick = "equipItem('skin', 'Skintone3')">Skin Tone 4</button>
+                    </div>
+                     </div>
 
                 </div>
                 </div>

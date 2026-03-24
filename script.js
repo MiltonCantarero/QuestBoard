@@ -5,6 +5,7 @@ let coins = 0;
 let streak = 0;
 let amountNeededForNextLevel = 100;
 
+//Starting clothing for the character
 let equipment = {
     head: "DefaultHeadBoy",
     torso: "DefaultTorso",
@@ -12,12 +13,37 @@ let equipment = {
     skin: "DefaultSkin",
 };
 
+//Owned items
+let ownedItems = [
+    "DefaultHeadBoy", "DefaultHeadGirl", "DefaultTorso", "DefaultLegs", 
+    "DefaultSkin", "Skintone1", "Skintone2", "Skintone3"
+];
+
+//SHOP
+let shopItems = {
+    KnightHelmet: ["KnightHelmet"],
+    ProfessorHead: ["ProfessorHead", "ProfessorTorso", "ProfessorLegs"],
+    BirdieMale: ["BirdieMale", "BirdieFemale"],
+    MageTorso: ["MageTorso", "MageLegs"]
+
+};
 
 //Elements from HTML
 const taskInput = document.getElementById("taskInput");
 const xpValueInput = document.getElementById("xpValue");
 const addQuestButton = document.getElementById("addQuestButton");
 const questList = document.getElementById("questlist");
+
+taskInput.addEventListener("keydown", function(event){
+    if(event.key === "Enter"){
+        addQuest();
+    }
+});
+xpValueInput.addEventListener("keydown", function(event){
+    if(event.key === "Enter"){
+        addQuest();
+    }
+});
 
 //Display fpr stats
 const xpStatus = document.querySelector(".XpStatus");
@@ -68,30 +94,35 @@ function addQuest(){
 } 
 
 function completeQuest(questCard, questXP){
-    questCard.classList.add("completed");
     setTimeout(() => {
         questCard.remove();
+        saveData();
     }, 400); // Delay to allow animation to play
 
     let gainedXP = 0;
     const xpInterval = setInterval(() => {
         xp++;
         gainedXP++;
-        updateUI();
-        
-        if(gainedXP >= questXP){
-            clearInterval(xpInterval);
-        }
-    }, 20); // Adjust the speed of XP gain here (lower is faster)
 
-    coins = coins + Math.floor(questXP / 10);
-
-    if (xp >= amountNeededForNextLevel){
+        if (xp >= amountNeededForNextLevel){
         xp = xp - amountNeededForNextLevel;
         level++;
         amountNeededForNextLevel = Math.floor(amountNeededForNextLevel * 1.25);
         alert(`Congratulations! You've reached level ${level}!`);
     }
+
+        updateUI();
+        
+        if(gainedXP >= questXP){
+            clearInterval(xpInterval);
+            saveData();
+        }
+    }, 20); // Adjust the speed of XP gain here (lower is faster)
+
+    coins = coins + Math.floor(questXP / 2);
+
+  
+    
 
     updateUI();
     saveData();
@@ -181,6 +212,12 @@ buyButtons.forEach(button => {
         const costText = card.querySelector(".shopPrice").textContent;
         const cost = Number(costText.replace(" Gold",""));
 
+        const item = this.dataset.item;
+        if(ownedItems.includes(item)){
+            alert("You already own this item!");
+            return;
+        }
+
         const confirmPurchase = confirm(`Buy ${title} for ${cost} gold?`);
 
         if(!confirmPurchase) return;
@@ -192,15 +229,26 @@ buyButtons.forEach(button => {
 
         coins -= cost;
 
+        const rewards = shopItems[item];
+        rewards.forEach(reward => {
+            if(!ownedItems.includes(reward)){
+                ownedItems.push(reward);
+            }
+        });
+        saveOwnedItems();
+
         alert(`${title} added to your inventory!`);
 
         updateUI();
         saveData();
+        updateCustomization();
 
     });
 
 });
 
+
+//Saves data to equip clothing for character
 function equipItem(type, item){
     
     equipment[type] = item;
@@ -233,7 +281,40 @@ function loadEquipment(){
     }
 }
 
+function updateCustomization(){
+    const buttons = document.querySelectorAll(".customButtons button");
+
+    buttons.forEach(button => {
+        const onclick = button.getAttribute("onclick");
+        if(!onclick) return;
+
+        const match = onclick.match(/'([^']+)'/g);
+        if(!match) return;
+
+        const item = match[1].replace(/'/g, "");
+
+        if(!ownedItems.includes(item)){
+            button.style.display = "none";
+        } else {
+            button.style.display = "block";
+        }
+    });
+}
+
+function saveOwnedItems(){
+    localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
+}
+function loadOwnedItems(){
+    const saved = localStorage.getItem("ownedItems");
+    if(saved){
+        ownedItems = JSON.parse(saved);
+    }
+}
+
+
 window.onload = function(){
     loadData();
     loadEquipment();
+    loadOwnedItems();
+    updateCustomization();
 }
